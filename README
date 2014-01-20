@@ -1,0 +1,7 @@
+Trying some problems to practice for interviews.
+
+Problem:
+The problem was, given a string of characters and a dictionary can you find words in the string.
+
+Current Solution:
+The program currently finds the lowest amount of characters that make valid words and outputs them, if it can't find a word it discards the first letter and moves on.
