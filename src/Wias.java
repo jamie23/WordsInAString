@@ -12,30 +12,49 @@ public class Wias {
 		HashMap dict = new HashMap();
 		dict = getDict();
 		String word = getWord().toLowerCase();
+
+		int numLetters = 1;
+		int count = 0;
+		int leastDiscarded = 10;
+		int bestRun = 0;
 		
-		int firstLetter = 0;
-		int secondLetter = 1;
-		String wordToLookup = "";
-		
-		while(firstLetter<word.length()){
-			wordToLookup = word.substring(firstLetter, secondLetter);
+		//Run this for loop for the largest amount of min char's to check per run.
+		for(int i=0;i<6;i++){
 			
-			if(dict.containsKey(wordToLookup) && wordToLookup.length()>2){
-				System.out.println(wordToLookup);
-				firstLetter = secondLetter;
-				secondLetter++;
-			}else if(secondLetter == word.length() && word.length()>2){
+			int firstLetter = 0;
+			int secondLetter = 1;
+			String wordToLookup = "";
+			
+			System.out.println("Run " + i);
+			while(firstLetter<word.length()){
 				
-				/*Keep this commented if you don't want letters which lead nowhere output.
-				* System.out.println(word.substring(firstLetter,firstLetter+1));
-				*/
+				wordToLookup = word.substring(firstLetter, secondLetter);
 				
-				firstLetter++;
-				secondLetter = firstLetter+1;
-			}else{
-				secondLetter++;
+				if(dict.containsKey(wordToLookup) && wordToLookup.length()>numLetters){
+					System.out.println(wordToLookup);
+					firstLetter = secondLetter;
+					secondLetter++;
+				}else if(secondLetter == word.length() && word.length()>numLetters){
+					
+					/*Keep this commented if you don't want letters which lead nowhere output.
+					* System.out.println(word.substring(firstLetter,firstLetter+1));
+					*/
+					count++;
+					firstLetter++;
+					secondLetter = firstLetter+1;
+				}else{
+					secondLetter++;
+				}
+
 			}
+			//Keep track of which run discard the least letters
+			if(count<leastDiscarded){
+				leastDiscarded = numLetters;
+				bestRun = i;
+			}
+			numLetters++;
 		}
+		System.out.println("Run: " + bestRun + " uses the most letters");
 	}
 
 	/*
